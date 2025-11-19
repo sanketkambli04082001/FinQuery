@@ -1,4 +1,4 @@
-# FinQuery 📊🤖
+# FinQuery 📊🤖— AI-Powered Financial Report Analyzer
 
 ## Overview
 
@@ -21,15 +21,18 @@ Designed for users who want quick, reliable financial understanding without read
   Extracts the most important financial highlights using Gemini AI.
 
 - **Competitor Detection & Market Stats**  
-  Identifies competitors and fetches metrics like P/E ratio and market cap.
+  Identifies competitor companies and fetches market metrics like:
+  - P/E ratio
+  - Market cap
+  - Current stock data
 
 - **Automatic Revenue Charting**  
-  Detects revenue tables and generates charts using Matplotlib.
+  Detects revenue tables from PDFs → generates plots with Matplotlib.
 
-- **Smart Q&A System**  
+- **PDF-Grounded Q&A**  
   Ask any question based on the uploaded report — the system answers ONLY using the PDF content.
 
-- **Clean User Interface**  
+- **Clean Frontend UI**  
   Built with Flask, HTML, CSS, Bootstrap, and Jinja templates.
 
 - **Beginner-Friendly Output**  
@@ -40,13 +43,21 @@ Designed for users who want quick, reliable financial understanding without read
 ## Tech Stack 💻
 
 **Backend & AI:**  
-Python • Flask • Gemini AI • PyMuPDF • yfinance • Alpha Vantage API  
+- Python 
+- Flask 
+- Gemini AI 
+- PyMuPDF 
+- yfinance 
+- Alpha Vantage API  
 
 **Frontend:**  
-HTML5 • CSS3 • Bootstrap • Jinja2  
+- HTML5 
+- CSS3 
+- Bootstrap 
+- Jinja2  
 
 **Data Visualization:**  
-Matplotlib  
+- Matplotlib  
 
 ---
 
@@ -102,10 +113,10 @@ FinQuery/
 
 FinQuery was built as a real-world capstone project showcasing:
 
-- AI prompt engineering  
-- PDF extraction and summarization  
+- Prompt engineering for finance
+- End-to-end PDF analysis pipelines
 - Financial data analysis  
-- Data visualization  
+- Data cleaning and visualization
 - Full-stack Flask development  
 - Clean UI/UX design  
 
@@ -154,9 +165,19 @@ python app.py
 ```
 
 
-## Author
+## 👤 Author
 
-**Sanket Kambli**  
-AI & Python Developer  
+<table>
+  <tr>
+    <td>
+      <img src="https://github.com/user-attachments/assets/b2087320-3c3e-45e8-837a-d795de714f42" width="120" style="border-radius: 12px;" />
+    </td>
+    <td style="padding-left: 15px;">
+      <b>Sanket Kambli</b><br>
+      Python & AI Developer<br>
+      <a href="https://www.linkedin.com/in/sanket-kambli-6bb012223" target="_blank">LinkedIn Profile</a><br>
+      <a href="mailto:sanketkambli04082001@gmail.com">sanketkambli04082001@gmail.com</a>
+    </td>
+  </tr>
+</table>
 
----
