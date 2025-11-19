@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FinQuery — Report {{ report.ticker }}</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;800&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="{{ url_for('static_files', filename='css/site.css') }}" rel="stylesheet">
+</head>
+<body data-theme="default">
+
+  <!-- header -->
+  <header class="navbar-light bg-white shadow-sm sticky-top">
+    <div class="container d-flex align-items-center justify-content-between py-3">
+      <div class="brand fs-4 fw-bold">FinQuery</div>
+      <div class="small text-muted">Report: {{ report.ticker }}</div>
+    </div>
+  </header>
+
+  <main class="container py-4">
+    <div class="row gx-4">
+      <!-- main column -->
+      <div class="col-lg-8">
+        <!-- Summary -->
+        <section class="mb-4">
+          <h3 class="fw-bold mb-2">Executive Summary</h3>
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <pre style="white-space: pre-wrap; margin:0;">{{ report.summary }}</pre>
+            </div>
+          </div>
+        </section>
+
+        <!-- Competitors -->
+        <section class="mb-4">
+          <h4 class="fw-bold mb-2">Competitors</h4>
+          <div class="card mb-3">
+            <div class="card-body">
+              {% if report.competitors %}
+                <ul class="list-group list-group-flush">
+                  {% for c in report.competitors %}
+                    <li class="list-group-item">{{ c }}</li>
+                  {% endfor %}
+                </ul>
+              {% else %}
+                <div class="text-muted">No competitors found in the report.</div>
+              {% endif %}
+            </div>
+          </div>
+        </section>
+
+        <!-- Chart -->
+        <section class="mb-4">
+          <h4 class="fw-bold mb-2">Revenue Chart</h4>
+          <div class="card">
+            <div class="card-body text-center">
+              {% if report.chart_filename %}
+                <img src="{{ url_for('static_files', filename=report.chart_filename) }}" alt="Revenue chart" class="img-fluid border rounded">
+              {% else %}
+                <div class="alert alert-warning mb-0">No revenue chart available for this report.</div>
+              {% endif %}
+            </div>
+          </div>
+        </section>
+
+        <!-- Q&A (simple POST form, no JS) -->
+        <section class="mb-4">
+          <h4 class="fw-bold mb-2">Ask a question</h4>
+          <div class="card">
+            <div class="card-body">
+              <form method="post" action="{{ url_for('view_report', report_id=report.id) }}">
+                <div class="mb-3">
+                  <label class="form-label small">Your question</label>
+                  <input type="text" name="question" class="form-control" placeholder="e.g. What was revenue growth?" required>
+                </div>
+                <div class="d-flex gap-2">
+                  <button class="btn btn-primary" type="submit"><i class="fa fa-question-circle me-2"></i>Ask</button>
+                  <a class="btn btn-outline-secondary" href="{{ url_for('index') }}">Analyze another PDF</a>
+                </div>
+              </form>
+
+              {% if qa_answer %}
+                <hr class="my-3" />
+                <h6 class="mb-2">AI Answer</h6>
+                <div class="border rounded p-3">
+                  <pre style="white-space: pre-wrap; margin:0;">{{ qa_answer }}</pre>
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- side column -->
+      <aside class="col-lg-4">
+        <div class="card mb-3 shadow-sm">
+          <div class="card-body">
+            <h6 class="fw-bold">Report Details</h6>
+            <p class="small mb-1"><strong>Ticker:</strong> {{ report.ticker }}</p>
+            <p class="small mb-1"><strong>DB ID:</strong> {{ report.id }}</p>
+            <p class="small text-muted mb-0">Uploaded & processed using FinQuery pipeline.</p>
+          </div>
+        </div>
+
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h6 class="fw-bold">Competitor Quick Stats</h6>
+            {% if report.competitor_rows %}
+              <ul class="list-unstyled small mb-0">
+                {% for r in report.competitor_rows %}
+                  <li class="mb-2">
+                    <strong>{{ r.ticker }}</strong>
+                    {% if r.info %}
+                      <div>PE: {{ r.info.PERatio if r.info.PERatio else 'N/A' }} • MarketCap: {{ r.info.MarketCapitalization if r.info.MarketCapitalization else 'N/A' }}</div>
+                    {% else %}
+                      <div class="text-muted">No data</div>
+                    {% endif %}
+                  </li>
+                {% endfor %}
+              </ul>
+            {% else %}
+              <div class="text-muted small">No competitor data available.</div>
+            {% endif %}
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="py-4 bg-white border-top">
+    <div class="container text-muted small">FinQuery • Built with Python & Gemini</div>
+  </footer>
+</body>
+</html>
