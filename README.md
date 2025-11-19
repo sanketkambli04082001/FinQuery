@@ -96,7 +96,6 @@ FinQuery/
 ### Q&A Section  
 <img width="879" height="489" alt="image" src="https://github.com/user-attachments/assets/89031302-3042-4228-9a84-04d42b660682" />
 
-
 ---
 
 ## About the Project 💡
